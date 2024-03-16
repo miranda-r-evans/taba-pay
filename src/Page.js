@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Typography, Modal, Card, CardContent, Box } from "@mui/material";
 import { useActiveNode } from "./context/ActiveNodeContext";
 import NavNode from "./components/NavNode";
+import BodyNode from "./components/BodyNode";
 import logo from "./logo.svg"
 
 const FOLDER = 1
@@ -59,11 +60,13 @@ const nodes = {
     id: 8,
     type: TEXT,
     title: 'Child B1',
+    content: 'Testing Multiple Categories'
   },
   9: {
     id: 9,
     type: TEXT,
     title: 'Child B2',
+    content: 'Testing Multiple Categories'
   },
   10: {
     id: 10,
@@ -118,18 +121,10 @@ export default function Page() {
           <Box sx={{m: 1, flexShrink: 0, overflow: 'auto'}}>
             <NavNode nodes={nodes} id={0}/>
           </Box>
-          <Card sx={{flexGrow: 4, m: 1, overflow: 'auto'}}>
-            <CardContent>
-              {
-                displayNode !== false && 
-                <Typography variant="h4">{nodes[displayNode].title}</Typography>
-              }
-              {
-                displayNode !== false && nodes[displayNode].content &&
-                <Typography paragraph={true}>{nodes[displayNode].content}</Typography>
-              }
-            </CardContent>
-          </Card>
+          <Box sx={{flexGrow: 4, m: 1, overflow: 'auto'}}>
+            {displayNode !== false && <BodyNode nodes={nodes} id={displayNode}></BodyNode>}
+          </Box>
+
         </Box>
         <Card sx={{flexShrink: 0}}>
           <CardContent>
