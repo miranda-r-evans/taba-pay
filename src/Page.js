@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Typography, Modal, Card, CardContent, Box } from "@mui/material";
 import { useActiveNode } from "./context/ActiveNodeContext";
 import NavNode from "./components/NavNode";
+import logo from "./logo.svg"
 
 const FOLDER = 1
 const TEXT = 2
@@ -35,7 +36,7 @@ const nodes = {
     id: 4,
     type: FOLDER,
     title: 'Child Parent A2',
-    children: [5, 6]
+    children: [5, 6, 11, 12, 13]
   },
   5: {
     id: 5,
@@ -46,7 +47,7 @@ const nodes = {
   6: {
     id: 6,
     type: TEXT,
-    title: 'Child A21',
+    title: 'Child A22',
   },
   7: {
     id: 7,
@@ -70,6 +71,21 @@ const nodes = {
     title: 'Child Parent B3',
     children: []
   },
+  11: {
+    id: 11,
+    type: TEXT,
+    title: 'Test Nav Scroll',
+  },
+  12: {
+    id: 12,
+    type: TEXT,
+    title: 'Test Nav Scroll',
+  },
+  13: {
+    id: 6,
+    type: TEXT,
+    title: 'Test Nav Scroll',
+  },
 }
 
 export default function Page() {
@@ -86,20 +102,40 @@ export default function Page() {
 
   return (
     <>
-      <Box sx={{display: 'flex', minHeight: '100vh'}}>
-        <Box sx={{m: 1}}>
-          <NavNode nodes={nodes} id={0}/>
-        </Box>
-        <Card sx={{flexGrow: 1, m: 1}}>
+      <Box sx={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
+        <Card sx={{flexShrink: 0}}>
           <CardContent>
-            {
-              displayNode !== false && 
-              <Typography variant="h4">{nodes[displayNode].title}</Typography>
-            }
-            {
-              displayNode !== false && nodes[displayNode].content &&
-              <Typography paragraph={true}>{nodes[displayNode].content}</Typography>
-            }
+            <Box display='flex' justifyContent='space-between'>
+              <img src={logo} width='100px' height='100px' alt='logo'/>
+              <Typography variant="h3" margin='auto'>
+                Header
+              </Typography>
+              <Box width='100px'/>
+            </Box>
+          </CardContent>
+        </Card>
+        <Box sx={{flexGrow: 1, display: 'flex', overflow: 'auto'}}>
+          <Box sx={{m: 1, flexShrink: 0, overflow: 'auto'}}>
+            <NavNode nodes={nodes} id={0}/>
+          </Box>
+          <Card sx={{flexGrow: 4, m: 1, overflow: 'auto'}}>
+            <CardContent>
+              {
+                displayNode !== false && 
+                <Typography variant="h4">{nodes[displayNode].title}</Typography>
+              }
+              {
+                displayNode !== false && nodes[displayNode].content &&
+                <Typography paragraph={true}>{nodes[displayNode].content}</Typography>
+              }
+            </CardContent>
+          </Card>
+        </Box>
+        <Card sx={{flexShrink: 0}}>
+          <CardContent>
+            <Typography variant="h3" align="center">
+              Footer
+            </Typography>
           </CardContent>
         </Card>
       </Box>
